@@ -14,11 +14,14 @@ const {
 
 const ROOT_DIR = "./images";
 
-const IMAGE_DIRS = "隶书/曹全碑";
+// const IMAGE_DIRS = "隶书/曹全碑";
+const IMAGE_DIRS = "/楷书/软笔颜体";
 
-const IMAGE_WIDTH = 600 / 1;
+const FOOT_NAME = "《颜勤礼碑》集字 - 沁园春雪";
 
-const IMAGE_HEIGHT = parseInt((600 * 1360) / 980);
+const IMAGE_WIDTH = 600 / 3;
+
+const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 2593) / 676);
 
 const IMAGE_DOCS_Path = path.join(
   ROOT_DIR,
@@ -76,7 +79,7 @@ async function createDocs(dirName, nameList) {
               new Paragraph({
                 alignment: AlignmentType.CENTER,
                 children: [
-                  new TextRun("汉隶曹全碑标准字帖共672字 - "),
+                  new TextRun(`${FOOT_NAME} - `),
                   new TextRun({
                     children: ["页码: ", PageNumber.CURRENT],
                   }),
