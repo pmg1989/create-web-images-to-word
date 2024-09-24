@@ -5,7 +5,6 @@ const {
   AlignmentType,
   Document,
   Footer,
-  Header,
   Packer,
   PageNumber,
   NumberFormat,
@@ -19,7 +18,7 @@ const IMAGE_DIRS = "隶书/曹全碑";
 
 const IMAGE_WIDTH = 600 / 1;
 
-const IMAGE_HEIGHT = parseInt((600 * 951) / 676);
+const IMAGE_HEIGHT = parseInt((600 * 1360) / 980);
 
 const IMAGE_DOCS_Path = path.join(
   ROOT_DIR,
@@ -44,6 +43,8 @@ async function main() {
           fs.statSync(`${ROOT_IMAGE_DIRS}/${dirName}/${b}`).mtime.getTime()
         );
       });
+
+    console.log(nameList, "[nameList]");
 
     await createDocs(dirName, nameList);
   }
