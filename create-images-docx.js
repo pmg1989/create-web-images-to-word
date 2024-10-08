@@ -15,13 +15,14 @@ const {
 const ROOT_DIR = "./images";
 
 // const IMAGE_DIRS = "隶书/曹全碑";
-const IMAGE_DIRS = "/楷书/软笔颜体";
+// const IMAGE_DIRS = "/楷书/软笔颜体";
+const IMAGE_DIRS = "/篆书/吴昌硕";
 
-const FOOT_NAME = "《颜勤礼碑》集字 - 沁园春雪";
+const FOOT_NAME = "石鼓文唐诗三首-吴昌硕";
 
-const IMAGE_WIDTH = 600 / 3;
+const IMAGE_WIDTH = 600 / 1;
 
-const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 2593) / 676);
+const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 913) / 640);
 
 const IMAGE_DOCS_Path = path.join(
   ROOT_DIR,
