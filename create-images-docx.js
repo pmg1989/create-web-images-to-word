@@ -31,19 +31,24 @@ const DIR_DIC = {
     NAME: "楷书",
     CHILD: {
       软笔颜体: "软笔颜体",
-      行书三字经: "行书三字经",
       "硬笔-胡啸卿": "硬笔-胡啸卿",
+    },
+  },
+  行书: {
+    NAME: "行书",
+    CHILD: {
+      三字经: "三字经",
     },
   },
 };
 
-const IMAGE_DIRS = `/${DIR_DIC.楷书.NAME}/${DIR_DIC.楷书.CHILD["硬笔-胡啸卿"]}`;
+const IMAGE_DIRS = `/${DIR_DIC.行书.NAME}/${DIR_DIC.行书.CHILD.三字经}`;
 
 const FOOT_NAME = "硬笔楷书结构精讲50字-胡啸卿";
 
-const IMAGE_WIDTH = 600 / 6;
+const IMAGE_WIDTH = 600 / 1;
 
-const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 100) / 100);
+const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 670) / 425);
 
 const IMAGE_DOCS_Path = path.join(
   ROOT_DIR,
