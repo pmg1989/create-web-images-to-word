@@ -4,7 +4,7 @@ const sharp = require("sharp");
 
 const ROOT_DIR = "./images";
 
-const IMAGE_DIRS = "隶书/曹全碑";
+const IMAGE_DIRS = "楷书/行书三字经";
 
 const ROOT_IMAGE_DIRS = path.join(ROOT_DIR, IMAGE_DIRS);
 
@@ -35,7 +35,7 @@ async function cropImage(dirName, nameList) {
 
     const sharpRes = await sharp(imagePath);
 
-    await sharpRes.extract({ left: 50, top: 80, width: 980, height: 1360 });
+    await sharpRes.extract({ left: 78, top: 50, width: 425, height: 670 });
 
     console.log(`${ROOT_IMAGE_DIRS}/${dirName}//${imgName}`, ["toFile"]);
 
