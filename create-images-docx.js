@@ -14,14 +14,13 @@ const {
 
 const ROOT_DIR = "./images";
 
-const IMAGE_DIRS =
-  "篆书/吴昌硕/《吴昌硕篆书部首一百法》，浙江古籍出版社，米字格版篆书字帖。";
+const IMAGE_DIRS = "篆书/吴昌硕/清吴昌硕篆书修震泽许塘记墨迹本_20张";
 
-const FOOT_NAME = "吴昌硕篆书部首一百法- 新版";
+const FOOT_NAME = "吴昌硕篆书修震泽许塘记墨迹本";
 
-const IMAGE_WIDTH = 600 / 1;
+const IMAGE_WIDTH = 550 / 1;
 
-const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 825) / 640);
+const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 2720) / 1600);
 
 const IMAGE_DOCS_Path = path.join(
   ROOT_DIR,
