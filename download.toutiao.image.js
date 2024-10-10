@@ -5,12 +5,16 @@ const https = require("https");
 const puppeteer = require("puppeteer");
 
 // 篆书
-// const PATH_LIST = ["吴昌硕"];
-// const IMAGES_DIR_PATH = `./images/篆书/${PATH_LIST[0]}`;
-// const pageList = [
-// /** 吴昌硕石鼓文唐诗三首，月落乌啼 */
-//   "https://www.toutiao.com/article/7286833257789063716/?app=news_article&timestamp=1728369069&use_new_style=1&req_id=20241008143109DD7DEE2A90FCB08C63C8&group_id=7286833257789063716&share_token=8490C45F-F311-41AC-A664-96F5E9D4EE8E&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
-// ];
+const PATH_LIST = ["吴昌硕"];
+const IMAGES_DIR_PATH = `./images/篆书/${PATH_LIST[0]}`;
+const pageList = [
+  // /** 吴昌硕石鼓文唐诗三首，月落乌啼 */
+  // "https://www.toutiao.com/article/7286833257789063716/?app=news_article&timestamp=1728369069&use_new_style=1&req_id=20241008143109DD7DEE2A90FCB08C63C8&group_id=7286833257789063716&share_token=8490C45F-F311-41AC-A664-96F5E9D4EE8E&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // /** 《吴昌硕篆书部首一百法》书法教程 */
+  // "https://www.toutiao.com/article/7193704965666357772/?app=news_article&timestamp=1728527968&use_new_style=1&req_id=20241010103928F8AAE3714C299C66A992&group_id=7193704965666357772&share_token=B82A1348-6956-4397-99EE-1727367B4B6A&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // /** 吴昌硕篆书《西泠印社记》 */
+  "https://www.toutiao.com/article/7407689993621176842/?app=news_article&timestamp=1728528107&use_new_style=1&req_id=20241010104146B0575E040E6E40663767&group_id=7407689993621176842&share_token=7B21EDC2-46E3-4010-9E4E-5BDC6B6A82A5&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+];
 
 // 隶书 曹全碑
 // const PATH_LIST = ["曹全碑"];
@@ -43,12 +47,12 @@ const puppeteer = require("puppeteer");
 // ];
 
 // 行书
-const PATH_LIST = ["三字经"];
-const IMAGES_DIR_PATH = `./images/行书/${PATH_LIST[0]}/`;
-const pageList = [
-  /** 三字经简繁体毛笔字帖 */
-  "https://www.toutiao.com/article/7375903921443832320/?app=news_article&timestamp=1728372775&use_new_style=1&req_id=20241008153254304825A498AB0C65D236&group_id=7375903921443832320&share_token=E70096B1-F4B6-40FB-B8F4-EC6D82ED4BD3&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
-];
+// const PATH_LIST = ["三字经"];
+// const IMAGES_DIR_PATH = `./images/行书/${PATH_LIST[0]}/`;
+// const pageList = [
+//   /** 三字经简繁体毛笔字帖 */
+//   "https://www.toutiao.com/article/7375903921443832320/?app=news_article&timestamp=1728372775&use_new_style=1&req_id=20241008153254304825A498AB0C65D236&group_id=7375903921443832320&share_token=E70096B1-F4B6-40FB-B8F4-EC6D82ED4BD3&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+// ];
 
 const delay = (milliseconds) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));

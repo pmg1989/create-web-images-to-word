@@ -42,13 +42,13 @@ const DIR_DIC = {
   },
 };
 
-const IMAGE_DIRS = `/${DIR_DIC.行书.NAME}/${DIR_DIC.行书.CHILD.三字经}`;
+const IMAGE_DIRS = `/${DIR_DIC.篆书.NAME}/${DIR_DIC.篆书.CHILD.吴昌硕}`;
 
 const FOOT_NAME = "硬笔楷书结构精讲50字-胡啸卿";
 
 const IMAGE_WIDTH = 600 / 1;
 
-const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 670) / 425);
+const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 828) / 640);
 
 const IMAGE_DOCS_Path = path.join(
   ROOT_DIR,
