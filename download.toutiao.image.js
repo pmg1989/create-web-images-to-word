@@ -14,6 +14,7 @@ const pageList = [
   // "https://www.toutiao.com/article/7193704965666357772/?app=news_article&timestamp=1728527968&use_new_style=1&req_id=20241010103928F8AAE3714C299C66A992&group_id=7193704965666357772&share_token=B82A1348-6956-4397-99EE-1727367B4B6A&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   // /** 吴昌硕篆书《西泠印社记》 */
   "https://www.toutiao.com/article/7407689993621176842/?app=news_article&timestamp=1728528107&use_new_style=1&req_id=20241010104146B0575E040E6E40663767&group_id=7407689993621176842&share_token=7B21EDC2-46E3-4010-9E4E-5BDC6B6A82A5&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/article/7369882042505200167/?app=news_article&timestamp=1728540084&use_new_style=1&req_id=202410101401240F9ED9C32A53AE7EFDF9&group_id=7369882042505200167&share_token=0A484FFE-7C96-4C35-AE99-8E963957DEAA&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
 ];
 
 // 隶书 曹全碑

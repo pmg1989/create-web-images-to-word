@@ -4,40 +4,32 @@ const sharp = require("sharp");
 
 const ROOT_DIR = "./images";
 
-const IMAGE_DIRS = "楷书/行书三字经";
+const IMAGE_DIRS = "篆书/吴昌硕/吴昌硕篆书《西泠印社记》";
 
 const ROOT_IMAGE_DIRS = path.join(ROOT_DIR, IMAGE_DIRS);
 
-const rootImageDirs = fs.readdirSync(ROOT_IMAGE_DIRS);
-
 async function main() {
-  for (let dirIndex in rootImageDirs) {
-    const dirName = rootImageDirs[dirIndex];
+  const nameList = fs.readdirSync(`${ROOT_IMAGE_DIRS}`).sort(function (a, b) {
+    return (
+      fs.statSync(`${ROOT_IMAGE_DIRS}/${a}`).mtime.getTime() -
+      fs.statSync(`${ROOT_IMAGE_DIRS}/${b}`).mtime.getTime()
+    );
+  });
 
-    const nameList = fs
-      .readdirSync(`${ROOT_IMAGE_DIRS}/${dirName}`)
-      .sort(function (a, b) {
-        return (
-          fs.statSync(`${ROOT_IMAGE_DIRS}/${dirName}/${a}`).mtime.getTime() -
-          fs.statSync(`${ROOT_IMAGE_DIRS}/${dirName}/${b}`).mtime.getTime()
-        );
-      });
-
-    await cropImage(dirName, nameList).catch(console.error);
-  }
+  await cropImage(nameList).catch(console.error);
 }
 
-async function cropImage(dirName, nameList) {
+async function cropImage(nameList) {
   for (const imgName of nameList) {
-    const imagePath = `${ROOT_IMAGE_DIRS}/${dirName}/${imgName}`;
+    const imagePath = `${ROOT_IMAGE_DIRS}/${imgName}`;
 
     // if (imgName !== "1.jpg") return;
 
     const sharpRes = await sharp(imagePath);
 
-    await sharpRes.extract({ left: 78, top: 50, width: 425, height: 670 });
+    await sharpRes.extract({ left: 0, top: 60, width: 640, height: 1092 });
 
-    console.log(`${ROOT_IMAGE_DIRS}/${dirName}//${imgName}`, ["toFile"]);
+    console.log(`${ROOT_IMAGE_DIRS}/${imgName}`, ["toFile"]);
 
     await sharpRes.toFile(`${ROOT_DIR}/crop/${imgName}`);
   }

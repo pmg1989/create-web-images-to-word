@@ -14,70 +14,37 @@ const {
 
 const ROOT_DIR = "./images";
 
-const DIR_DIC = {
-  篆书: {
-    NAME: "篆书",
-    CHILD: {
-      吴昌硕: "吴昌硕",
-    },
-  },
-  隶书: {
-    NAME: "隶书",
-    CHILD: {
-      曹全碑: "曹全碑",
-    },
-  },
-  楷书: {
-    NAME: "楷书",
-    CHILD: {
-      软笔颜体: "软笔颜体",
-      "硬笔-胡啸卿": "硬笔-胡啸卿",
-    },
-  },
-  行书: {
-    NAME: "行书",
-    CHILD: {
-      三字经: "三字经",
-    },
-  },
-};
+const IMAGE_DIRS =
+  "篆书/吴昌硕/《吴昌硕篆书部首一百法》，浙江古籍出版社，米字格版篆书字帖。";
 
-const IMAGE_DIRS = `/${DIR_DIC.篆书.NAME}/${DIR_DIC.篆书.CHILD.吴昌硕}`;
-
-const FOOT_NAME = "硬笔楷书结构精讲50字-胡啸卿";
+const FOOT_NAME = "吴昌硕篆书部首一百法- 新版";
 
 const IMAGE_WIDTH = 600 / 1;
 
-const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 828) / 640);
+const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 825) / 640);
 
 const IMAGE_DOCS_Path = path.join(
   ROOT_DIR,
   "docs",
-  IMAGE_DIRS,
-  `${IMAGE_WIDTH}x${IMAGE_HEIGHT}`
+  IMAGE_DIRS
+  // `${IMAGE_WIDTH}x${IMAGE_HEIGHT}`
 );
 
 const ROOT_IMAGE_DIRS = path.join(ROOT_DIR, IMAGE_DIRS);
 
-const rootImageDirs = fs.readdirSync(ROOT_IMAGE_DIRS);
-
 async function main() {
-  for (let dirIndex in rootImageDirs) {
-    const dirName = rootImageDirs[dirIndex];
+  const dirName = FOOT_NAME;
 
-    const nameList = fs
-      .readdirSync(`${ROOT_IMAGE_DIRS}/${dirName}`)
-      .sort(function (a, b) {
-        return (
-          fs.statSync(`${ROOT_IMAGE_DIRS}/${dirName}/${a}`).mtime.getTime() -
-          fs.statSync(`${ROOT_IMAGE_DIRS}/${dirName}/${b}`).mtime.getTime()
-        );
-      });
+  const nameList = fs.readdirSync(ROOT_IMAGE_DIRS).sort(function (a, b) {
+    return (
+      fs.statSync(`${ROOT_IMAGE_DIRS}/${a}`).mtime.getTime() -
+      fs.statSync(`${ROOT_IMAGE_DIRS}/${b}`).mtime.getTime()
+    );
+  });
 
-    console.log(nameList, "[nameList]");
+  console.log(nameList, "[nameList]");
 
-    await createDocs(dirName, nameList);
-  }
+  await createDocs(dirName, nameList);
 }
 
 async function createDocs(dirName, nameList) {
@@ -106,9 +73,9 @@ async function createDocs(dirName, nameList) {
               new Paragraph({
                 alignment: AlignmentType.CENTER,
                 children: [
-                  new TextRun(`${FOOT_NAME} - `),
+                  new TextRun(`${FOOT_NAME}  `),
                   new TextRun({
-                    children: ["页码: ", PageNumber.CURRENT],
+                    children: [PageNumber.CURRENT],
                   }),
                   new TextRun({
                     children: [" / ", PageNumber.TOTAL_PAGES],
@@ -120,12 +87,11 @@ async function createDocs(dirName, nameList) {
         },
         children: [
           new Paragraph({
+            alignment: AlignmentType.CENTER,
             children: nameList.map(
               (name) =>
                 new ImageRun({
-                  data: fs.readFileSync(
-                    `${ROOT_IMAGE_DIRS}/${dirName}/${name}`
-                  ),
+                  data: fs.readFileSync(`${ROOT_IMAGE_DIRS}/${name}`),
                   transformation: {
                     width: IMAGE_WIDTH,
                     height: IMAGE_HEIGHT,
