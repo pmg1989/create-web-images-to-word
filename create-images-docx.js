@@ -14,11 +14,12 @@ const {
 
 const ROOT_DIR = "./images";
 
-const IMAGE_DIRS = "篆书/吴昌硕/清吴昌硕篆书修震泽许塘记墨迹本_20张";
+const IMAGE_DIRS =
+  "行书/《1185字行书字帖》- 胡问遂/谁敢将这篇字帖每日千番习字磨砺，必定铸就书法大家风范";
 
-const FOOT_NAME = "吴昌硕篆书修震泽许塘记墨迹本";
+const FOOT_NAME = "1185字行书字帖》- 胡问遂";
 
-const IMAGE_WIDTH = 550 / 1;
+const IMAGE_WIDTH = 600 / 1;
 
 const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 2720) / 1600);
 
