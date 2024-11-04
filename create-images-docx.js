@@ -14,14 +14,13 @@ const {
 
 const ROOT_DIR = "./images";
 
-const IMAGE_DIRS =
-  "行书/《1185字行书字帖》- 胡问遂/谁敢将这篇字帖每日千番习字磨砺，必定铸就书法大家风范";
+const IMAGE_DIRS = "隶书/曹全碑/汉隶《曹全碑》集字春联五言对联10副";
 
-const FOOT_NAME = "1185字行书字帖》- 胡问遂";
+const FOOT_NAME = "汉隶《曹全碑》集字春联五言对联10副";
 
-const IMAGE_WIDTH = 600 / 1;
+const IMAGE_WIDTH = 600 / 2;
 
-const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 2720) / 1600);
+const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 3020) / 1280);
 
 const IMAGE_DOCS_Path = path.join(
   ROOT_DIR,

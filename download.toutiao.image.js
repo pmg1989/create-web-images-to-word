@@ -20,14 +20,22 @@ const puppeteer = require("puppeteer");
 // ];
 
 // 隶书 曹全碑
-// const PATH_LIST = ["曹全碑"];
-// const IMAGES_DIR_PATH = `./images/隶书/${PATH_LIST[0]}`;
-// const pageList = [
-// /** 曹全碑标准字帖，本帖共57页，共684字，喜欢隶书的收藏好了 */
-//   "https://www.toutiao.com/article/7338812422226117172/?app=news_article&timestamp=1727148611&use_new_style=1&req_id=2024092411301100B961EAE2EBB47B88DD&group_id=7338812422226117172&share_token=96DFCA5A-0D8D-4B21-8AE9-E687095017E3&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
-//   // "https://www.toutiao.com/article/7368703686865879578/?app=news_article&timestamp=1716869415&use_new_style=1&req_id=2024052812101482EFA173C0A154689890&group_id=7368703686865879578&share_token=068C3F3C-40DC-4A87-90EA-43F0FFBC1F4C&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
-//   // "https://www.toutiao.com/article/7362574373963825690/?app=news_article&timestamp=1716869716&use_new_style=1&req_id=20240528121515237CB7F6795AA66B2D1C&group_id=7362574373963825690&share_token=1BE62534-22D1-44BA-A4F2-44B0CA1D71E8&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
-// ];
+const PATH_LIST = ["曹全碑"];
+const IMAGES_DIR_PATH = `./images/隶书/${PATH_LIST[0]}`;
+const pageList = [
+  // 春联 start
+  "https://www.toutiao.com/article/7055524026327892519/?app=news_article&timestamp=1730721446&use_new_style=1&req_id=20241104195725B2AB70EBAD8598156497&group_id=7055524026327892519&share_token=3ABAAC2A-1DF9-4E4C-8753-C4B8108B8226&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/article/6911926339956146700/?app=news_article&timestamp=1730701711&use_new_style=1&req_id=20241104142831DCD2EB04BC38CB2E2FF3&group_id=6911926339956146700&share_token=879BE962-3902-4061-B382-65C8BB09B345&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/article/7049859859604423209/?app=news_article&timestamp=1730701663&use_new_style=1&req_id=202411041427421616B5290E7D1629A89A&group_id=7049859859604423209&share_token=3A8291F8-1E75-47BD-B4AE-AA9E519BDC34&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/article/7188848139930780217/?app=news_article&timestamp=1730701622&use_new_style=1&req_id=20241104142702AF7A0A527F46002D6C20&group_id=7188848139930780217&share_token=C7D6B5DF-3315-4746-8CD0-66ECF0E82D50&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/article/7314808679163855395/?app=news_article&timestamp=1730701521&use_new_style=1&req_id=202411041425212D5CE7F4B5133F2C0FF4&group_id=7314808679163855395&share_token=8D78DC5A-8551-494A-9035-9CFE8A669206&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/w/1811667846548491/?app=news_article&timestamp=1730701789&use_new_style=1&share_token=C7075C9A-4183-4557-80AC-9EB0A4A6CBA6&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // 春联 end
+  /** 曹全碑标准字帖，本帖共57页，共684字，喜欢隶书的收藏好了 */
+  // "https://www.toutiao.com/article/7338812422226117172/?app=news_article&timestamp=1727148611&use_new_style=1&req_id=2024092411301100B961EAE2EBB47B88DD&group_id=7338812422226117172&share_token=96DFCA5A-0D8D-4B21-8AE9-E687095017E3&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/article/7368703686865879578/?app=news_article&timestamp=1716869415&use_new_style=1&req_id=2024052812101482EFA173C0A154689890&group_id=7368703686865879578&share_token=068C3F3C-40DC-4A87-90EA-43F0FFBC1F4C&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/article/7362574373963825690/?app=news_article&timestamp=1716869716&use_new_style=1&req_id=20240528121515237CB7F6795AA66B2D1C&group_id=7362574373963825690&share_token=1BE62534-22D1-44BA-A4F2-44B0CA1D71E8&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+];
 
 // 楷书
 // const PATH_LIST = ["软笔颜体"];
@@ -50,14 +58,14 @@ const puppeteer = require("puppeteer");
 // ];
 
 // 行书
-const PATH_LIST = ["《1185字行书字帖》- 胡问遂"];
-const IMAGES_DIR_PATH = `./images/行书/${PATH_LIST[0]}/`;
-const pageList = [
-  /** 三字经简繁体毛笔字帖 */
-  // "https://www.toutiao.com/article/7375903921443832320/?app=news_article&timestamp=1728372775&use_new_style=1&req_id=20241008153254304825A498AB0C65D236&group_id=7375903921443832320&share_token=E70096B1-F4B6-40FB-B8F4-EC6D82ED4BD3&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
-  /** 《1185字行书字帖》- 胡问遂*/
-  "https://www.toutiao.com/article/7411819957110981156/?app=news_article&timestamp=1728647173&use_new_style=1&req_id=20241011194613E6D27D0457537A40041F&group_id=7411819957110981156&share_token=E21F642F-DEE1-4F07-B163-79302275EE24&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
-];
+// const PATH_LIST = ["《1185字行书字帖》- 胡问遂"];
+// const IMAGES_DIR_PATH = `./images/行书/${PATH_LIST[0]}/`;
+// const pageList = [
+//   /** 三字经简繁体毛笔字帖 */
+//   // "https://www.toutiao.com/article/7375903921443832320/?app=news_article&timestamp=1728372775&use_new_style=1&req_id=20241008153254304825A498AB0C65D236&group_id=7375903921443832320&share_token=E70096B1-F4B6-40FB-B8F4-EC6D82ED4BD3&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+//   /** 《1185字行书字帖》- 胡问遂*/
+//   "https://www.toutiao.com/article/7411819957110981156/?app=news_article&timestamp=1728647173&use_new_style=1&req_id=20241011194613E6D27D0457537A40041F&group_id=7411819957110981156&share_token=E21F642F-DEE1-4F07-B163-79302275EE24&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+// ];
 
 const delay = (milliseconds) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -108,15 +116,18 @@ async function main() {
     const pageTitle = await page.evaluate(
       () =>
         document.querySelector("#root .main .article-content>h1").textContent
+      // document.querySelector("#root .main .weitoutiao-html").textContent
     );
 
     const images = await page.evaluate(() =>
       Array.from(
         document.querySelectorAll(
           "#root .main article.tt-article-content .pgc-img"
+          // "#root .main .image-list .weitoutiao-img"
         ),
         (el) => {
           return el.querySelector("img").src;
+          // return el.src;
         }
       )
     );
