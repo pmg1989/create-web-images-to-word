@@ -14,13 +14,13 @@ const {
 
 const ROOT_DIR = "./images";
 
-const IMAGE_DIRS = "楷书/软笔颜体/颜真卿《颜勤礼碑》集字春联";
+const IMAGE_DIRS = "楷书/软笔颜体/颜真卿行书标准字帖";
 
-const FOOT_NAME = "颜真卿《颜勤礼碑》集字春联";
+const FOOT_NAME = "颜真卿行书标准字帖";
 
 const IMAGE_WIDTH = 600 / 1;
 
-const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 3020) / 1280);
+const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 1400) / 1000);
 
 const IMAGE_DOCS_Path = path.join(
   ROOT_DIR,
