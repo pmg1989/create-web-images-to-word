@@ -12,44 +12,37 @@ const {
   TextRun,
 } = require("docx");
 
-const ROOT_DIR = "./images";
+const CUR_DIR = "./images/行书/胡问遂/《1185字行书字帖》- 胡问遂";
 
-const IMAGE_DIRS = "楷书/软笔颜体/颜真卿行书标准字帖";
+const IMAGE_DIR = "images";
 
-const FOOT_NAME = "颜真卿行书标准字帖";
+const FILE_NAME = CUR_DIR.split("/").at(-1);
 
-const IMAGE_WIDTH = 600 / 1;
+const IMAGE_WIDTH = 0; // 600 / 1;
 
-const IMAGE_HEIGHT = parseInt((IMAGE_WIDTH * 1400) / 1000);
+const IMAGE_HEIGHT = 0; // parseInt((IMAGE_WIDTH * 1400) / 1000);
 
-const IMAGE_DOCS_Path = path.join(
-  ROOT_DIR,
-  "docs",
-  IMAGE_DIRS
-  // `${IMAGE_WIDTH}x${IMAGE_HEIGHT}`
-);
+const IMAGE_DOCS_Path = path.join(CUR_DIR);
 
-const ROOT_IMAGE_DIRS = path.join(ROOT_DIR, IMAGE_DIRS);
+const CUR_IMAGE_DIR = path.join(CUR_DIR, IMAGE_DIR);
 
 async function main() {
-  const dirName = FOOT_NAME;
-
-  const nameList = fs.readdirSync(ROOT_IMAGE_DIRS).sort(function (a, b) {
+  const nameList = fs.readdirSync(CUR_IMAGE_DIR).sort(function (a, b) {
     return (
-      fs.statSync(`${ROOT_IMAGE_DIRS}/${a}`).mtime.getTime() -
-      fs.statSync(`${ROOT_IMAGE_DIRS}/${b}`).mtime.getTime()
+      fs.statSync(`${CUR_IMAGE_DIR}/${a}`).mtime.getTime() -
+      fs.statSync(`${CUR_IMAGE_DIR}/${b}`).mtime.getTime()
     );
   });
 
   console.log(nameList, "[nameList]");
 
-  await createDocs(dirName, nameList);
+  await createDocs(FILE_NAME, nameList);
 }
 
-async function createDocs(dirName, nameList) {
-  console.log(dirName, "[文件生成中...]");
+async function createDocs(fileName, nameList) {
+  console.log(fileName, "[文件生成中...]");
 
-  const docsFullName = `${IMAGE_DOCS_Path}/${dirName}.docx`;
+  const docsFullName = `${IMAGE_DOCS_Path}/${fileName}.docx`;
 
   if (fs.existsSync(docsFullName)) {
     fs.rmSync(docsFullName);
@@ -72,7 +65,7 @@ async function createDocs(dirName, nameList) {
               new Paragraph({
                 alignment: AlignmentType.CENTER,
                 children: [
-                  new TextRun(`${FOOT_NAME}  `),
+                  new TextRun(`${FILE_NAME}  `),
                   new TextRun({
                     children: [PageNumber.CURRENT],
                   }),
@@ -87,16 +80,35 @@ async function createDocs(dirName, nameList) {
         children: [
           new Paragraph({
             alignment: AlignmentType.CENTER,
-            children: nameList.map(
-              (name) =>
-                new ImageRun({
-                  data: fs.readFileSync(`${ROOT_IMAGE_DIRS}/${name}`),
+            children: nameList.map((name) => {
+              const names = name.replace(".jpg", "").split("x");
+
+              const [_index, widthO, heightO] = names;
+
+              const max_width = 600;
+              const max_height = 930;
+
+              const width = (Number(widthO) * max_height) / Number(heightO);
+              const height = (Number(heightO) * max_width) / Number(widthO);
+
+              if (width > max_width) {
+                return new ImageRun({
+                  data: fs.readFileSync(`${CUR_IMAGE_DIR}/${name}`),
                   transformation: {
-                    width: IMAGE_WIDTH,
-                    height: IMAGE_HEIGHT,
+                    width: IMAGE_WIDTH || max_width,
+                    height: IMAGE_HEIGHT || height,
                   },
-                })
-            ),
+                });
+              }
+
+              return new ImageRun({
+                data: fs.readFileSync(`${CUR_IMAGE_DIR}/${name}`),
+                transformation: {
+                  width: IMAGE_WIDTH || width,
+                  height: IMAGE_HEIGHT || max_height,
+                },
+              });
+            }),
           }),
         ],
       },
@@ -111,7 +123,7 @@ async function createDocs(dirName, nameList) {
 
   fs.writeFileSync(docsFullName, buffer);
 
-  console.log(dirName, "[文件生成成功]");
+  console.log(fileName, "[文件生成成功]");
 }
 
 main().catch(console.error);
