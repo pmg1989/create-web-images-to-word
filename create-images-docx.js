@@ -12,7 +12,7 @@ const {
   TextRun,
 } = require("docx");
 
-const CUR_DIR = "./images/行书/胡问遂/《1185字行书字帖》- 胡问遂";
+const CUR_DIR = "./images/楷书/软笔颜体/颜真卿《颜勤礼碑》楷书字帖";
 
 const IMAGE_DIR = "images";
 
