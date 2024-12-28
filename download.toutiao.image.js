@@ -42,17 +42,17 @@ const PATH_LIST = ["软笔颜体"];
 const IMAGES_DIR_PATH = `./images/楷书/${PATH_LIST[0]}/`;
 const pageList = [
   /** 颜真卿《颜勤礼碑》楷书字帖 */
-  "https://www.toutiao.com/article/6849242895333982732/?app=news_article&timestamp=1735375665&use_new_style=1&req_id=202412281647443DACE18BD95111846C32&group_id=6849242895333982732&share_token=E77E3F98-AF91-443B-BCAF-0089D1F9B58D&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/article/6849242895333982732/?app=news_article&timestamp=1735375665&use_new_style=1&req_id=202412281647443DACE18BD95111846C32&group_id=6849242895333982732&share_token=E77E3F98-AF91-443B-BCAF-0089D1F9B58D&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   /** 颜真卿《多宝塔碑》集字古诗 */
   // "https://www.toutiao.com/w/1812668096050176/?app=news_article&timestamp=1735371567&use_new_style=1&share_token=A0ECB470-9386-422A-93EC-9F5C3585F51B&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   /** 杨再春临颜真卿《裴将军诗帖》 */
   // "https://www.toutiao.com/article/7418982414766113289/?app=news_article&timestamp=1735368496&use_new_style=1&req_id=20241228144816ECC7A648F2C11173DEBB&group_id=7418982414766113289&share_token=DEC847A5-2437-489F-A5E0-89D7F7B785F9&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   /** 颜真卿楷书《自书告身帖》 */
   // "https://www.toutiao.com/article/7449207966806311433/?app=news_article&timestamp=1735362563&use_new_style=1&req_id=2024122813092361A806484D9A527017FB&group_id=7449207966806311433&share_token=EEA14111-8A41-44E9-B521-C0D5FC79EE73&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
-  /** 颜真卿行书标准字帖 */
+  /** 颜真卿楷书标准字帖 */
   // "https://www.toutiao.com/article/7338808433564582435/?app=news_article&timestamp=1735212527&use_new_style=1&req_id=20241226192846433DFC0657DC1C91DD1F&group_id=7338808433564582435&share_token=33EB50BA-CC5E-4130-A4F9-F150A1425ADD&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   /** 颜真卿《颜勤礼碑》集字春联 */
-  // "https://www.toutiao.com/w/1816476393011292/?app=news_article&timestamp=1734346991&use_new_style=1&share_token=D5523BBD-D2A2-4241-8229-5E8AA5791523&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  "https://www.toutiao.com/w/1816476393011292/?app=news_article&timestamp=1734346991&use_new_style=1&share_token=D5523BBD-D2A2-4241-8229-5E8AA5791523&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   /** 史上最全颜真卿·勤礼碑集字春联（新版） */
   // "https://www.toutiao.com/article/7338015443498500617/?app=news_article&timestamp=1734346850&use_new_style=1&req_id=20241216190049F3528BF746F07F9662A0&group_id=7338015443498500617&share_token=3ADF9B94-17B0-4EF2-BA4B-A29FCD60E8EB&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   /** 2025蛇年颜体春联，端庄喜庆 */

@@ -12,7 +12,7 @@ const {
   TextRun,
 } = require("docx");
 
-const CUR_DIR = "./images/楷书/软笔颜体/颜真卿《颜勤礼碑》楷书字帖";
+const CUR_DIR = "./images/楷书/软笔颜体/颜真卿《颜勤礼碑》集字春联";
 
 const IMAGE_DIR = "images";
 
