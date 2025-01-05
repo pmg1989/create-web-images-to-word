@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
 
-const IMAGE_DIRS = "./images/楷书/硬笔/胡啸卿/硬笔楷书结构精讲";
+const IMAGE_DIRS = "./images/楷书/软笔/颜体/颜真卿楷书《大唐中兴颂》";
 
 const ORIGIN_DIRS = "images";
 

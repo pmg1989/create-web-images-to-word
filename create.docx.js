@@ -12,7 +12,7 @@ const {
   TextRun,
 } = require("docx");
 
-const CUR_DIR = "./images/楷书/硬笔/胡啸卿/硬笔楷书结构精讲";
+const CUR_DIR = "./images/行书/其他/珍藏版行书《千字文》";
 
 const IMAGE_DIR = "images";
 
