@@ -12,7 +12,7 @@ const {
   TextRun,
 } = require("docx");
 
-const CUR_DIR = "./images/行书/其他/珍藏版行书《千字文》";
+const CUR_DIR = "./images/楷书/软笔/颜体/《自书告身帖》楷书";
 
 const IMAGE_DIR = "images";
 
@@ -53,6 +53,12 @@ async function createDocs(fileName, nameList) {
       {
         properties: {
           page: {
+            margin: {
+              top: "10px",
+              right: "10px",
+              bottom: "10px",
+              left: "10px",
+            },
             pageNumbers: {
               start: 1,
               formatType: NumberFormat.DECIMAL,
@@ -63,7 +69,7 @@ async function createDocs(fileName, nameList) {
           default: new Footer({
             children: [
               new Paragraph({
-                alignment: AlignmentType.CENTER,
+                alignment: AlignmentType.RIGHT,
                 children: [
                   new TextRun(`${FILE_NAME}  `),
                   new TextRun({
@@ -85,8 +91,8 @@ async function createDocs(fileName, nameList) {
 
               const [_index, widthO, heightO] = names;
 
-              const max_width = 600;
-              const max_height = 930;
+              const max_width = 600 + 172;
+              const max_height = 930 + 172;
 
               const width = (Number(widthO) * max_height) / Number(heightO);
               const height = (Number(heightO) * max_width) / Number(widthO);

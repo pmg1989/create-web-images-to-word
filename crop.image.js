@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
 
-const IMAGE_DIRS = "./images/楷书/软笔/颜体/颜真卿楷书《大唐中兴颂》";
+const IMAGE_DIRS = "./images/楷书/软笔/颜体/《自书告身帖》楷书";
 
 const ORIGIN_DIRS = "images";
 
@@ -38,10 +38,10 @@ async function cropImage(nameList) {
       .jpeg({ quality: 80 });
 
     // await sharpRes.extract({
-    //   left: 0,
-    //   top: 0,
-    //   width: Number(widthO),
-    //   height: Number(heightO),
+    //   left: 60,
+    //   top: 90,
+    //   width: Number(widthO) - 120,
+    //   height: Number(heightO) - 180,
     // });
 
     const cropPath = path.join(IMAGE_DIRS, CROP_DIRS);
