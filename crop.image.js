@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
 
-const IMAGE_DIRS = "./images/楷书/软笔/颜体/《自书告身帖》楷书";
+const IMAGE_DIRS = "./images/行书/其他/《岳阳楼记》行书入门教程";
 
 const ORIGIN_DIRS = "images";
 
@@ -33,16 +33,16 @@ async function cropImage(nameList) {
 
     const [_index, widthO, heightO] = names;
 
-    await sharpRes
-      .resize(Math.floor(Number(widthO) / 2), Math.floor(Number(heightO) / 2))
-      .jpeg({ quality: 80 });
+    // await sharpRes
+    //   .resize(Math.floor(Number(widthO) / 2), Math.floor(Number(heightO) / 2))
+    //   .jpeg({ quality: 80 });
 
-    // await sharpRes.extract({
-    //   left: 60,
-    //   top: 90,
-    //   width: Number(widthO) - 120,
-    //   height: Number(heightO) - 180,
-    // });
+    await sharpRes.extract({
+      left: 70,
+      top: 50,
+      width: Number(widthO) - 140,
+      height: Number(heightO) - 100,
+    });
 
     const cropPath = path.join(IMAGE_DIRS, CROP_DIRS);
 

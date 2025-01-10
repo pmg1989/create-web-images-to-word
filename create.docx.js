@@ -12,7 +12,7 @@ const {
   TextRun,
 } = require("docx");
 
-const CUR_DIR = "./images/楷书/软笔/颜体/《自书告身帖》楷书";
+const CUR_DIR = "./images/楷书/软笔/颜体/春联情深/2024年09月12日";
 
 const IMAGE_DIR = "images";
 
@@ -29,8 +29,8 @@ const CUR_IMAGE_DIR = path.join(CUR_DIR, IMAGE_DIR);
 async function main() {
   const nameList = fs.readdirSync(CUR_IMAGE_DIR).sort(function (a, b) {
     return (
-      fs.statSync(`${CUR_IMAGE_DIR}/${a}`).mtime.getTime() -
-      fs.statSync(`${CUR_IMAGE_DIR}/${b}`).mtime.getTime()
+      fs.statSync(`${CUR_IMAGE_DIR}/${a}`).ctime.getTime() -
+      fs.statSync(`${CUR_IMAGE_DIR}/${b}`).ctime.getTime()
     );
   });
 
@@ -73,10 +73,10 @@ async function createDocs(fileName, nameList) {
                 children: [
                   new TextRun(`${FILE_NAME}  `),
                   new TextRun({
-                    children: [PageNumber.CURRENT],
+                    children: [PageNumber.TOTAL_PAGES],
                   }),
                   new TextRun({
-                    children: [" / ", PageNumber.TOTAL_PAGES],
+                    children: [" / ", PageNumber.CURRENT],
                   }),
                 ],
               }),
