@@ -1,14 +1,23 @@
 const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
+const getPixels = require("get-pixels");
+// const { rgb2Hex } = require("./utils");
 
-const IMAGE_DIRS = "./images/行书/其他/《岳阳楼记》行书入门教程";
+const IMAGE_DIRS = "./images/行书/春联情深/8天前";
 
 const ORIGIN_DIRS = "images";
 
 const CROP_DIRS = "crop";
 
 const ROOT_IMAGE_DIRS = path.join(IMAGE_DIRS, ORIGIN_DIRS);
+
+// 抽离配置常量
+const CONFIG = {
+  scanStep: 10,
+  modifyOffset: 60, // 6 * scanStep
+  rgbDiffThreshold: 30,
+};
 
 async function main() {
   const nameList = fs.readdirSync(`${ROOT_IMAGE_DIRS}`).sort(function (a, b) {
@@ -24,36 +33,119 @@ async function main() {
 async function cropImage(nameList) {
   for (const imgName of nameList) {
     const imagePath = `${ROOT_IMAGE_DIRS}/${imgName}`;
+    const pixels = await getPixelsSync(imagePath);
 
-    // if (imgName !== "1.jpg") return;
+    // 计算关键点位置
+    const dimensions = {
+      centerX: pixels.shape[0] / 2,
+      centerY: pixels.shape[1] / 2,
+      maxSharpX: pixels.shape[0] / 3,
+      maxSharpY: pixels.shape[1] / 3,
+    };
 
-    const sharpRes = await sharp(imagePath);
+    // 扫描边界
+    const boundaryX = await scanBoundary(
+      pixels,
+      dimensions.centerX,
+      dimensions.centerY,
+      dimensions.maxSharpX,
+      true
+    );
 
-    const names = imgName.replace(".jpg", "").split("x");
+    const boundaryY = await scanBoundary(
+      pixels,
+      dimensions.centerX,
+      dimensions.centerY,
+      dimensions.maxSharpY,
+      false
+    );
 
-    const [_index, widthO, heightO] = names;
+    // 处理图片裁剪
+    const cropDimensions = calculateCropDimensions(
+      boundaryX.x,
+      boundaryY.y,
+      pixels.shape[0],
+      pixels.shape[1],
+      CONFIG.modifyOffset
+    );
 
-    // await sharpRes
-    //   .resize(Math.floor(Number(widthO) / 2), Math.floor(Number(heightO) / 2))
-    //   .jpeg({ quality: 80 });
+    console.log(imgName, cropDimensions, pixels.shape[0], pixels.shape[1]);
 
-    await sharpRes.extract({
-      left: 70,
-      top: 50,
-      width: Number(widthO) - 140,
-      height: Number(heightO) - 100,
-    });
+    await processImageCrop(imagePath, cropDimensions, imgName);
+  }
+}
 
-    const cropPath = path.join(IMAGE_DIRS, CROP_DIRS);
+// 抽离扫描边界的方法
+async function scanBoundary(pixels, centerX, centerY, maxSharp, isHorizontal) {
+  let prev = {};
 
-    console.log(`${cropPath}/${imgName}`, ["toFile"]);
+  for (let i = 0; i < maxSharp; i += CONFIG.scanStep) {
+    const rgb = {
+      r: pixels.get(isHorizontal ? i : centerX, isHorizontal ? centerY : i, 0),
+      g: pixels.get(isHorizontal ? i : centerX, isHorizontal ? centerY : i, 1),
+      b: pixels.get(isHorizontal ? i : centerX, isHorizontal ? centerY : i, 2),
+    };
 
-    if (!fs.existsSync(cropPath)) {
-      fs.mkdirSync(cropPath, { recursive: true });
+    if (i > 0 && isRGBDifferent(rgb, prev.rgb, CONFIG.rgbDiffThreshold)) {
+      return prev;
     }
 
-    await sharpRes.toFile(`${cropPath}/${imgName}`);
+    prev = { [isHorizontal ? "x" : "y"]: i, rgb };
   }
+
+  return prev;
+}
+
+// 抽离裁剪尺寸计算逻辑
+function calculateCropDimensions(x, y, width, height, offset) {
+  const _left = x - offset;
+  const _top = y - offset;
+  const left = _left > 0 ? _left : x;
+  const top = _top > 0 ? _top : y;
+
+  return {
+    left,
+    top,
+    width: width - 2 * left,
+    height: height - 2 * top,
+  };
+}
+
+// 抽离图片处理逻辑
+async function processImageCrop(imagePath, dimensions, imgName) {
+  const sharpRes = await sharp(imagePath);
+  await sharpRes.extract(dimensions);
+
+  const cropPath = path.join(IMAGE_DIRS, CROP_DIRS);
+
+  if (!fs.existsSync(cropPath)) {
+    fs.mkdirSync(cropPath, { recursive: true });
+  }
+
+  await sharpRes.toFile(`${cropPath}/${imgName}`);
+}
+
+async function getPixelsSync(imagePath) {
+  return new Promise((resolve, reject) => {
+    return getPixels(imagePath, function (err, pixels) {
+      if (err) {
+        console.error(imagePath, "[imagePath]");
+        reject(err);
+      }
+
+      resolve(pixels);
+    });
+  });
+}
+
+function isRGBDifferent(rgb1, rgb2, rgbDiffThreshold = 30) {
+  const rgbDiff = Math.sqrt(
+    Math.pow(rgb1.r - rgb2.r, 2) +
+      Math.pow(rgb1.g - rgb2.g, 2) +
+      Math.pow(rgb1.b - rgb2.b, 2)
+  );
+
+  return rgbDiff > rgbDiffThreshold;
 }
 
 main().catch(console.error);

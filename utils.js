@@ -70,9 +70,31 @@ async function autoScroll(page, toScrollHeight = 10000, distance = 100) {
   );
 }
 
+/**
+ * rgb转hex
+ * @param {number} r 红色色值，如：64
+ * @param {number} g 绿色色值，如：158
+ * @param {number} b 蓝色色值，如：255
+ * @returns {string} 最终rgb转hex的值，如：#409EFF
+ */
+function rgb2Hex(r, g, b) {
+  // 将每个颜色值转换为两位的十六进制字符串
+  let hex =
+    "#" +
+    ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+  return hex;
+}
+
+// 获取文件后缀名
+function getFileExtension(url) {
+  return url.split(".").pop().split("?")[0].toLowerCase();
+}
+
 module.exports = {
   delay: delay,
   download: download,
   padStart: padStart,
   autoScroll: autoScroll,
+  rgb2Hex: rgb2Hex,
+  getFileExtension: getFileExtension,
 };

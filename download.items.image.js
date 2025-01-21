@@ -2,7 +2,7 @@
 
 const puppeteer = require("puppeteer");
 
-const { delay, download, padStart } = require("./utils");
+const { delay, download, padStart, getFileExtension } = require("./utils");
 
 // 篆书
 // const PATH_LIST = ["吴昌硕"];
@@ -42,7 +42,7 @@ const IMAGES_DIR_PATH = `./images/楷书/${PATH_LIST.join("/")}`;
 
 const pageList = [
   /** 颜柳楷书对照字帖 */
-  "https://www.toutiao.com/article/7421903462453002806/?app=news_article&timestamp=1736584181&use_new_style=1&req_id=202501111629402BF4B8DA19A73BB4ABED&group_id=7421903462453002806&share_token=7AFDD4D5-F90E-4B88-8B88-E81799D734B2&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
+  // "https://www.toutiao.com/article/7421903462453002806/?app=news_article&timestamp=1736584181&use_new_style=1&req_id=202501111629402BF4B8DA19A73BB4ABED&group_id=7421903462453002806&share_token=7AFDD4D5-F90E-4B88-8B88-E81799D734B2&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   /** 《多宝塔碑》宋拓版 */
   // "https://www.toutiao.com/article/7395464831031869987/?app=news_article&timestamp=1736309891&use_new_style=1&req_id=20250108121810C8DD41DE89C97AED6488&group_id=7395464831031869987&share_token=79BC1C4E-AC84-4863-8461-B820167B4A5F&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   /** 《多宝塔碑》集字·唐诗2 */
@@ -175,7 +175,7 @@ async function main(_IMAGES_DIR_PATH, _pageList, _pageTitle, _subFolder) {
             "#root .main .image-list .weitoutiao-img"
           );
 
-          return images2;
+          return images2 || [];
         })(),
         (el) => {
           const $img = el.querySelector("img") || el;
@@ -191,6 +191,7 @@ async function main(_IMAGES_DIR_PATH, _pageList, _pageTitle, _subFolder) {
     console.log(curPageIndex, pageTitle, images.length, "[images]");
 
     for (let i = 0; i < images.length; i++) {
+      // const extension = getFileExtension(images[i].src);
       const result = await download(
         images[i].src,
         `${_IMAGES_DIR_PATH}/${pageTitle}/${_subFolder}/images`,
@@ -211,14 +212,12 @@ async function main(_IMAGES_DIR_PATH, _pageList, _pageTitle, _subFolder) {
     }
   }
 
-  if (images.length > 0) {
-    await delay(1000);
-  }
+  await delay(1000);
 
   await browser.close();
 }
 
-// main(IMAGES_DIR_PATH, pageList, "", "").catch(console.error);
+main(IMAGES_DIR_PATH, pageList, "", "").catch(console.error);
 
 module.exports = {
   main: main,
