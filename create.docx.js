@@ -12,15 +12,15 @@ const {
   TextRun,
 } = require("docx");
 
-const CUR_DIR = "./images/楷书/软笔/颜体/春联情深/2024年09月12日";
+const CUR_DIR = "./images/楷书/软笔/颜体/《多宝塔碑》单字米字格版共495字";
 
 const IMAGE_DIR = "images";
 
 const FILE_NAME = CUR_DIR.split("/").at(-1);
 
-const IMAGE_WIDTH = 0; // 600 / 1;
+const IMAGE_WIDTH = 255;
 
-const IMAGE_HEIGHT = 0; // parseInt((IMAGE_WIDTH * 1400) / 1000);
+const IMAGE_HEIGHT = 255;
 
 const IMAGE_DOCS_Path = path.join(CUR_DIR);
 

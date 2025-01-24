@@ -41,6 +41,8 @@ const PATH_LIST = ["软笔", "颜体"];
 const IMAGES_DIR_PATH = `./images/楷书/${PATH_LIST.join("/")}`;
 
 const pageList = [
+  /** 《多宝塔碑》单字放大米字格版 */
+  "http://www.360doc.com/content/17/0926/16/37233142_690353614.shtml",
   /** 颜柳楷书对照字帖 */
   // "https://www.toutiao.com/article/7421903462453002806/?app=news_article&timestamp=1736584181&use_new_style=1&req_id=202501111629402BF4B8DA19A73BB4ABED&group_id=7421903462453002806&share_token=7AFDD4D5-F90E-4B88-8B88-E81799D734B2&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&source=m_redirect",
   /** 《多宝塔碑》宋拓版 */
@@ -130,14 +132,17 @@ async function main(_IMAGES_DIR_PATH, _pageList, _pageTitle, _subFolder) {
   for (let curPageIndex = 0; curPageIndex < _pageList.length; curPageIndex++) {
     await page.goto(_pageList[curPageIndex]);
 
+    // 设置页面的宽高
+    await page.setViewport({ width: 1920, height: 1080 });
+
     console.log("加载中...");
 
     await delay(_pageList.length > 10 ? 2500 : 5000);
 
     try {
-      await page.click("#root .main .expand-button-wrapper .expand-button");
+      await page.click("#main #artcontentdiv .article_showall");
 
-      await delay(1000);
+      await delay(5000);
 
       warnFlag = warnFlag + 1;
     } catch (e) {
@@ -148,7 +153,7 @@ async function main(_IMAGES_DIR_PATH, _pageList, _pageTitle, _subFolder) {
 
     let __pageTitle = await page.evaluate(() => {
       const content1 = document.querySelector(
-        "#root .main .article-content>h1"
+        "#bgchange #titiletext #GLTitile"
       )?.textContent;
 
       if (!!content1) return content1;
@@ -165,30 +170,26 @@ async function main(_IMAGES_DIR_PATH, _pageList, _pageTitle, _subFolder) {
     const images = await page.evaluate(() =>
       Array.from(
         (() => {
-          const images1 = document.querySelectorAll(
-            "#root .main article.tt-article-content .pgc-img"
+          const images = document.querySelectorAll(
+            "#articlecontent #artContent p img"
           );
 
-          if (!!images1.length) return images1;
-
-          const images2 = document.querySelectorAll(
-            "#root .main .image-list .weitoutiao-img"
-          );
-
-          return images2 || [];
+          return images1;
         })(),
         (el) => {
-          const $img = el.querySelector("img") || el;
+          const $img = el;
           return {
-            src: $img.src,
-            width: $img.getAttribute("img_width") || $img.width,
-            height: $img.getAttribute("img_height") || $img.height,
+            src: $img.getAttribute("src") || $img.src,
+            width: $img.naturalWidth || $img.width,
+            height: $img.naturalHeight || $img.height,
           };
         }
       )
     );
 
     console.log(curPageIndex, pageTitle, images.length, "[images]");
+
+    console.log(images, "[images]");
 
     for (let i = 0; i < images.length; i++) {
       // const extension = getFileExtension(images[i].src);
@@ -222,3 +223,7 @@ main(IMAGES_DIR_PATH, pageList, "", "").catch(console.error);
 module.exports = {
   main: main,
 };
+
+for (let i = 0; i < 3, i++; ) {
+  urlList.push(images1[i].src);
+}

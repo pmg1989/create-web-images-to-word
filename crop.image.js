@@ -2,9 +2,9 @@ const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
 const getPixels = require("get-pixels");
-// const { rgb2Hex } = require("./utils");
+const { padStart } = require("./utils");
 
-const IMAGE_DIRS = "./images/行书/春联情深/8天前";
+const IMAGE_DIRS = "./images/楷书/软笔/颜体/《多宝塔碑》单字米字格版共495字";
 
 const ORIGIN_DIRS = "images";
 
@@ -31,7 +31,8 @@ async function main() {
 }
 
 async function cropImage(nameList) {
-  for (const imgName of nameList) {
+  // for (const imgName of nameList) {
+  for (const [index, imgName] of nameList.entries()) {
     const imagePath = `${ROOT_IMAGE_DIRS}/${imgName}`;
     const pixels = await getPixelsSync(imagePath);
 
@@ -69,9 +70,13 @@ async function cropImage(nameList) {
       CONFIG.modifyOffset
     );
 
-    console.log(imgName, cropDimensions, pixels.shape[0], pixels.shape[1]);
+    const newName = `${padStart(index)}_${cropDimensions.width}x${
+      cropDimensions.height
+    }.jpg`;
 
-    await processImageCrop(imagePath, cropDimensions, imgName);
+    console.log(newName, cropDimensions, pixels.shape[0], pixels.shape[1]);
+
+    await processImageCrop(imagePath, cropDimensions, newName);
   }
 }
 
