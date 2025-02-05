@@ -18,9 +18,9 @@ const IMAGE_DIR = "images";
 
 const FILE_NAME = CUR_DIR.split("/").at(-1);
 
-const IMAGE_WIDTH = 255;
+const IMAGE_WIDTH = 345;
 
-const IMAGE_HEIGHT = 255;
+const IMAGE_HEIGHT = 345;
 
 const IMAGE_DOCS_Path = path.join(CUR_DIR);
 
