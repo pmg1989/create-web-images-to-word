@@ -84,14 +84,19 @@ async function cropImage(nameList) {
 async function scanBoundary(pixels, centerX, centerY, maxSharp, isHorizontal) {
   let prev = {};
 
-  for (let i = 0; i < maxSharp; i += CONFIG.scanStep) {
+  const stepStart = 0;
+
+  for (let i = stepStart; i < maxSharp; i += CONFIG.scanStep) {
     const rgb = {
       r: pixels.get(isHorizontal ? i : centerX, isHorizontal ? centerY : i, 0),
       g: pixels.get(isHorizontal ? i : centerX, isHorizontal ? centerY : i, 1),
       b: pixels.get(isHorizontal ? i : centerX, isHorizontal ? centerY : i, 2),
     };
 
-    if (i > 0 && isRGBDifferent(rgb, prev.rgb, CONFIG.rgbDiffThreshold)) {
+    if (
+      i > stepStart &&
+      isRGBDifferent(rgb, prev.rgb, CONFIG.rgbDiffThreshold)
+    ) {
       return prev;
     }
 
