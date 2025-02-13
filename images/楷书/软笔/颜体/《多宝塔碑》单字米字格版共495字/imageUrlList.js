@@ -1,6 +1,14 @@
 /**
  * http://www.360doc6.net/wxarticlenew/690353614.html
+ * 《多宝塔碑》单字米字格版共495字
  * 可直接下载至本地，修改后缀名为jpg */
+
+// const $imgs = document.querySelectorAll('#artContent p[align="center"] img')
+
+// const urlList = Array.from($imgs).map((img) => img.src)
+
+// JSON.stringify(urlList)
+
 export const list = [
   "https://image109.360doc.com/DownloadImg/2017/09/2616/111946750_1_20170926043956592.jpg",
   "https://image109.360doc.com/DownloadImg/2017/09/2616/111946750_2_20170926043956826",

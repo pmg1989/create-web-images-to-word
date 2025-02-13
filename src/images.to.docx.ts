@@ -14,7 +14,7 @@ import {
 } from "docx";
 
 const CUR_DIR: string =
-  "./images/楷书/软笔/颜体/《自书告身帖》楷书-单字米格放大版";
+  "./images/楷书/软笔/其他/梁同书/清代梁同书楷书作品《六一泉三堂祠记》";
 
 const IMAGE_DIR: string = "images";
 

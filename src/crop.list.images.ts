@@ -6,7 +6,7 @@ import { padStart } from "@/utils/tools";
 import { BoundaryResult, CropDimensions, RGB } from "@/interface/types";
 
 const DIRS_CONFIG = {
-  root: "./images/楷书/软笔/颜体/《自书告身帖》楷书-单字米格放大版",
+  root: "./images/楷书/软笔/其他/梁同书/清代梁同书楷书作品《六一泉三堂祠记》",
   origin: "images",
   crop: "crop",
 };
