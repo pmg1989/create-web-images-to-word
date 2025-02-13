@@ -12,15 +12,15 @@ const {
   TextRun,
 } = require("docx");
 
-const CUR_DIR = "./images/楷书/软笔/颜体/《多宝塔碑》单字米字格版共495字";
+const CUR_DIR = "./images/楷书/软笔/颜体/《颜勤礼碑》楷书字帖";
 
 const IMAGE_DIR = "images";
 
 const FILE_NAME = CUR_DIR.split("/").at(-1);
 
-const IMAGE_WIDTH = 345;
+const IMAGE_WIDTH = 0;
 
-const IMAGE_HEIGHT = 345;
+const IMAGE_HEIGHT = 0;
 
 const IMAGE_DOCS_Path = path.join(CUR_DIR);
 

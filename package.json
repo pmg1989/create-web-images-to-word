@@ -1,17 +1,29 @@
 {
-  "name": "puppeteer",
+  "name": "html-images-to-word",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "src/main.ts",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist && tsc && tsc-alias",
+    "download:list:images": "yarn build && node dist/download.list.images.js",
+    "download:item:images": "yarn build && node dist/download.item.images.js",
+    "images:crop": "yarn build && node dist/crop.list.images.js",
+    "images:to:docx": "yarn build && node dist/images.to.docx.js",
+    "images:to:text": "yarn build && node dist/images.to.text.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "docx": "^8.5.0",
+    "docx": "^9.1.1",
     "get-pixels": "^3.3.3",
     "puppeteer": "^20.9.0",
-    "sharp": "^0.33.5"
+    "puppeteer-extra-plugin-user-preferences": "^2.4.1",
+    "sharp": "^0.33.5",
+    "tesseract.js": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/get-pixels": "^3.3.4",
+    "@types/node": "^20.4.5",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.10",
+    "typescript": "^5.1.6"
   }
 }
