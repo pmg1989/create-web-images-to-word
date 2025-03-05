@@ -13,8 +13,7 @@ import {
   ISectionOptions,
 } from "docx";
 
-const CUR_DIR: string =
-  "./images/楷书/软笔/其他/梁同书/清代梁同书楷书作品《六一泉三堂祠记》";
+const CUR_DIR: string = "./images/篆书/吴昌硕/清吴昌硕篆书修震泽许塘记墨迹本";
 
 const IMAGE_DIR: string = "images";
 
