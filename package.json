@@ -12,18 +12,18 @@
     "images:to:text": "yarn build && node dist/images.to.text.js"
   },
   "dependencies": {
-    "docx": "^9.1.1",
+    "docx": "^9.3.0",
     "get-pixels": "^3.3.3",
-    "puppeteer": "^20.9.0",
+    "puppeteer": "^24.4.0",
     "puppeteer-extra-plugin-user-preferences": "^2.4.1",
     "sharp": "^0.33.5",
     "tesseract.js": "^6.0.0"
   },
   "devDependencies": {
     "@types/get-pixels": "^3.3.4",
-    "@types/node": "^20.4.5",
-    "ts-node": "^10.9.1",
-    "tsc-alias": "^1.8.10",
-    "typescript": "^5.1.6"
+    "@types/node": "^22.13.10",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.11",
+    "typescript": "^5.8.2"
   }
 }
