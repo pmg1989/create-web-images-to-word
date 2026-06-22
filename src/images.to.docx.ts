@@ -13,7 +13,7 @@ import {
   ISectionOptions,
 } from "docx";
 
-const CUR_DIR: string = "./images/楷书/软笔/颜体/《颜勤礼碑》- 心慕手追";
+const CUR_DIR: string = "./images/楷书/软笔/颜体/谦德堂中考书法工作室";
 
 const IMAGE_DIR: string = "images";
 
@@ -28,7 +28,9 @@ const IMAGE_DOCS_Path: string = path.join(CUR_DIR);
 const CUR_IMAGE_DIR: string = path.join(CUR_DIR, IMAGE_DIR);
 
 async function main(): Promise<void> {
-  const nameList: string[] = fs.readdirSync(CUR_IMAGE_DIR);
+  const nameList: string[] = fs
+    .readdirSync(CUR_IMAGE_DIR)
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   // .sort((a: string, b: string) => {
   //   return (
   //     fs.statSync(`${CUR_IMAGE_DIR}/${a}`).ctime.getTime() -
@@ -92,8 +94,8 @@ async function createDocs(fileName: string, nameList: string[]): Promise<void> {
               const names: string[] = name.replace(".jpg", "").split("x");
               const [_index, widthO, heightO] = names;
 
-              const max_width: number = 600 + 172;
-              const max_height: number = 930 + 172;
+              const max_width: number = 300;
+              const max_height: number = 520;
 
               const width: number =
                 (Number(widthO) * max_height) / Number(heightO);

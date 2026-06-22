@@ -1,6 +1,6 @@
 import puppeteer, { Browser, Page } from "puppeteer";
 import path from "path";
-import { downloadImage, saveImage } from "@/utils/tools";
+import { delay, downloadImage, saveImage } from "@/utils/tools";
 import { Config, ListSelectors } from "@/interface/types";
 
 // Configuration constants
@@ -9,10 +9,15 @@ const CONFIG: Config = {
   PATHS: ["软笔", "颜体"],
   SOURCES: [
     {
-      title: "翰墨文馨",
-      nestedItem: false,
-      url: "https://www.toutiao.com/c/user/token/MS4wLjABAAAAPQ8Ts43HdMN3MF6te8D3FwkofkHJwEggrf5m4AttvVo/?source=m_redirect&tab=wtt",
+      title: "谦德堂中考书法工作室",
+      nestedItem: true,
+      url: "https://www.toutiao.com/c/user/token/CibGzAsQxEydhW2XoMpdp8bjfw_J5AYDGvuIOn67DTzl-af0SnbttxpJCjwAAAAAAAAAAAAAUJKom0asQqBOVoW38gS-EdRvZ6AkWCc4zqpiznkfoQVIHKWNv11Gohoc0QmWNMO0ODkQxuyUDhjDxYPqBCIBA8qRFvg=/?source=m_redirect",
     },
+    // {
+    //   title: "翰墨文馨",
+    //   nestedItem: false,
+    //   url: "https://www.toutiao.com/c/user/token/MS4wLjABAAAAPQ8Ts43HdMN3MF6te8D3FwkofkHJwEggrf5m4AttvVo/?source=m_redirect&tab=wtt",
+    // },
   ],
 };
 
@@ -30,7 +35,7 @@ const SELECTORS: ListSelectors = {
 const getPageContent = async <T>(
   page: Page,
   selector: string,
-  evaluateFunc: (selectors: ListSelectors) => T
+  evaluateFunc: (selectors: ListSelectors) => T,
 ): Promise<T> => {
   await page.waitForSelector(selector);
   return page.evaluate(evaluateFunc, SELECTORS);
@@ -48,6 +53,8 @@ const main = async (): Promise<void> => {
 
     await page.goto(url);
 
+    await delay(1000 * 60 * 3); // Wait for 3 minutes to ensure all content is loaded
+
     // Get page title and image URLs
     const title = await getPageContent(page, SELECTORS.IMAGES, (selectors) => {
       const title = document.querySelector(selectors.PROFILE_NAME);
@@ -59,10 +66,10 @@ const main = async (): Promise<void> => {
       SELECTORS.IMAGES,
       (selectors) => {
         const images = document.querySelectorAll<HTMLImageElement>(
-          selectors.IMAGES
+          selectors.IMAGES,
         );
         return Array.from(images).map((img) => img.src);
-      }
+      },
     );
 
     console.log(imageUrls, "imageUrls");
@@ -73,7 +80,7 @@ const main = async (): Promise<void> => {
       CONFIG.SCRIPT_TYPE,
       ...CONFIG.PATHS,
       title,
-      "images"
+      "images",
     );
 
     // Download images sequentially with try-catch for each image
