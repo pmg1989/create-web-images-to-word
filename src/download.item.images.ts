@@ -252,7 +252,7 @@ const SELECTORS: ItemSelectors = {
 };
 
 async function getPageImages(
-  page: Page
+  page: Page,
 ): Promise<{ url: string; width: number; height: number }[]> {
   return await page.evaluate((selectors) => {
     const primaryImages = document.querySelectorAll(selectors.IMAGES.PRIMARY);
@@ -281,7 +281,7 @@ async function processPage(
   source: Config["SOURCES"][0],
   curPageIndex: number,
   outputPath: string,
-  subFolder: string
+  subFolder: string,
 ): Promise<void> {
   try {
     await page.goto(source.url);
@@ -317,7 +317,7 @@ async function processPage(
         const imageData = await downloadImage(image.url);
 
         const imageName = `${padStart(curPageIndex.toString())}_${padStart(
-          index.toString()
+          index.toString(),
         )}x${image.width}x${image.height}.jpg`;
 
         await saveImage(imagePath, imageName, imageData);
@@ -334,9 +334,21 @@ async function processPage(
 
 async function main(
   outputPath: string,
-  sources: Config["SOURCES"],
-  subFolder: string = ""
+  sources: Config["SOURCES"] | string[],
+  pageTitleOrSubFolder = "",
+  nestedSubFolder = "",
 ): Promise<void> {
+  const isNestedLinks = sources.every((source) => typeof source === "string");
+
+  const normalizedSources = isNestedLinks
+    ? (sources as string[]).map((url) => ({
+        title: pageTitleOrSubFolder,
+        url,
+      }))
+    : (sources as Config["SOURCES"]);
+
+  const subFolder = isNestedLinks ? nestedSubFolder : pageTitleOrSubFolder;
+
   const browser = await puppeteer.launch({ headless: false });
 
   try {
@@ -350,7 +362,7 @@ async function main(
     // Set custom user agent
     await page.setUserAgent(customUA);
 
-    for (const [curPageIndex, source] of sources.entries()) {
+    for (const [curPageIndex, source] of normalizedSources.entries()) {
       await processPage(page, source, curPageIndex, outputPath, subFolder);
     }
   } catch (error) {
@@ -362,6 +374,8 @@ async function main(
 
 const DOCS_PATH = path.join("images", CONFIG.SCRIPT_TYPE, ...CONFIG.PATHS);
 
-main(DOCS_PATH, CONFIG.SOURCES, "").catch(console.error);
+if (require.main === module) {
+  main(DOCS_PATH, CONFIG.SOURCES, "").catch(console.error);
+}
 
 export { main };

@@ -1,16 +1,22 @@
-import puppeteer, { Browser, Page } from "puppeteer";
+import puppeteer, { Page } from "puppeteer";
 import path from "path";
 import { delay, downloadImage, saveImage } from "@/utils/tools";
 import { Config, ListSelectors } from "@/interface/types";
+import { main as downloadItemImages } from "@/download.item.images";
 
 // Configuration constants
 const CONFIG: Config = {
   SCRIPT_TYPE: "楷书", // Can be '隶书', '楷书', or '行书'
   PATHS: ["软笔", "颜体"],
   SOURCES: [
+    // {
+    //   title: "宝如斋",
+    //   nestedItem: true,
+    //   url: "https://www.toutiao.com/c/user/token/CiY6VeuUEQ7iIV4WqXIdvlbPTGU-AhIUbsMEJD1acDAU38oX1JYduxpJCjwAAAAAAAAAAAAAUJVv5C15SSYMuxFEmeFAYIGxHFqqwBQtpIvwN2fOjYdQJzAsbkN0IFEG3uu--5tL8hUQj42VDhjDxYPqBCIBA0TVGu4=/?source=m_redirect",
+    // },
     {
       title: "谦德堂中考书法工作室",
-      nestedItem: true,
+      nestedItem: false,
       url: "https://www.toutiao.com/c/user/token/CibGzAsQxEydhW2XoMpdp8bjfw_J5AYDGvuIOn67DTzl-af0SnbttxpJCjwAAAAAAAAAAAAAUJKom0asQqBOVoW38gS-EdRvZ6AkWCc4zqpiznkfoQVIHKWNv11Gohoc0QmWNMO0ODkQxuyUDhjDxYPqBCIBA8qRFvg=/?source=m_redirect",
     },
     // {
@@ -41,6 +47,34 @@ const getPageContent = async <T>(
   return page.evaluate(evaluateFunc, SELECTORS);
 };
 
+const getPageInfo = async (
+  page: Page,
+): Promise<{ pageTitle: string; subFolder: string }> =>
+  getPageContent(page, SELECTORS.CARD_WRAPPER, (selectors) => {
+    const profileName = document.querySelector(selectors.PROFILE_NAME);
+    const cards = document.querySelectorAll(selectors.CARD_WRAPPER);
+    const lastCard = cards[cards.length - 1];
+    const subFolder =
+      lastCard?.querySelector(selectors.CARD_TIME)?.textContent?.trim() ?? "";
+
+    return {
+      pageTitle: profileName?.textContent?.trim() ?? "",
+      subFolder,
+    };
+  });
+
+const getPageLinks = async (page: Page): Promise<string[]> =>
+  getPageContent(page, SELECTORS.CARD_WRAPPER, (selectors) => {
+    const cards = document.querySelectorAll(selectors.CARD_WRAPPER);
+
+    return Array.from(cards, (card) => {
+      const href = card
+        .querySelector(selectors.CARD_LINK)
+        ?.getAttribute("href");
+      return href ? new URL(href, window.location.href).toString() : "";
+    }).filter(Boolean);
+  });
+
 const main = async (): Promise<void> => {
   const browser = await puppeteer.launch({
     headless: false,
@@ -49,17 +83,30 @@ const main = async (): Promise<void> => {
 
   try {
     const page = await browser.newPage();
-    const { url } = CONFIG.SOURCES[0];
+    const source = CONFIG.SOURCES[0];
 
-    await page.goto(url);
+    await page.goto(source.url);
 
-    await delay(1000 * 60 * 3); // Wait for 3 minutes to ensure all content is loaded
+    // await delay(1000 * 60 * 1); // Wait for 3 minutes to ensure all content is loaded
 
-    // Get page title and image URLs
-    const title = await getPageContent(page, SELECTORS.IMAGES, (selectors) => {
-      const title = document.querySelector(selectors.PROFILE_NAME);
-      return title ? title.textContent! : "";
-    });
+    const { pageTitle, subFolder } = await getPageInfo(page);
+
+    console.log(pageTitle, "title");
+
+    if (source.nestedItem) {
+      const pageLinks = await getPageLinks(page);
+
+      console.log(pageLinks, "pageLinks");
+
+      const outputPath = path.join(
+        "images",
+        CONFIG.SCRIPT_TYPE,
+        ...CONFIG.PATHS,
+      );
+
+      await downloadItemImages(outputPath, pageLinks, pageTitle, subFolder);
+      return;
+    }
 
     const imageUrls = await getPageContent(
       page,
@@ -79,7 +126,7 @@ const main = async (): Promise<void> => {
       "images",
       CONFIG.SCRIPT_TYPE,
       ...CONFIG.PATHS,
-      title,
+      pageTitle,
       "images",
     );
 
