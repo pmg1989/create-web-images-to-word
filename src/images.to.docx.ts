@@ -13,7 +13,7 @@ import {
   ISectionOptions,
 } from "docx";
 
-const CUR_DIR: string = "./images/楷书/软笔/颜体/宝如斋";
+const CUR_DIR: string = "./images/楷书/软笔/颜体/《颜勤礼碑》高清放大版";
 
 const IMAGE_DIR: string = "images";
 
@@ -94,8 +94,8 @@ async function createDocs(fileName: string, nameList: string[]): Promise<void> {
               const names: string[] = name.replace(".jpg", "").split("x");
               const [_index, widthO, heightO] = names;
 
-              const max_width: number = 300; // 600 + 172;
-              const max_height: number = 520; // 930 + 172;
+              const max_width: number = 600 + 172;
+              const max_height: number = 930 + 172;
 
               const width: number =
                 (Number(widthO) * max_height) / Number(heightO);

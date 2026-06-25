@@ -6,7 +6,7 @@ import { padStart } from "@/utils/tools";
 import { BoundaryResult, CropDimensions, RGB } from "@/interface/types";
 
 const DIRS_CONFIG = {
-  root: "./images/楷书/软笔/颜体/谦德堂中考书法工作室",
+  root: "./images/楷书/软笔/颜体/《颜勤礼碑》高清放大版",
   origin: "images",
   crop: "crop",
 };
@@ -16,7 +16,7 @@ const ROOT_IMAGE_DIRS = path.join(DIRS_CONFIG.root, DIRS_CONFIG.origin);
 // 抽离配置常量
 const CONFIG = {
   // crop: 保持原裁剪逻辑；copy: 只读取原图下标/尺寸并复制原文件到 crop 目录
-  outputMode: "copy" as "crop" | "copy",
+  outputMode: "crop" as "crop" | "copy",
   // 扫描步长和RGB差异阈值可以根据实际情况调整
   scanStep: 10,
   // modifyOffset应该根据实际图片的边界情况进行调整，过大可能会裁剪掉部分内容，过小可能无法完全去除边界
@@ -100,7 +100,7 @@ async function cropImage(nameList: string[]): Promise<void> {
       cropDimensions.height,
     );
 
-    console.log(newName, cropDimensions, originWidth, originHeight);
+    console.log(index, newName, cropDimensions, originWidth, originHeight);
 
     await processImageCrop(imagePath, cropDimensions, newName);
   }

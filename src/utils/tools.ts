@@ -18,7 +18,7 @@ export const downloadImage = async (url: string): Promise<Buffer> => {
 export const saveImage = async (
   imageDir: string,
   imageName: string,
-  data: Buffer
+  data: Buffer,
 ): Promise<void> => {
   await fs.promises.mkdir(imageDir, { recursive: true });
 
@@ -32,7 +32,7 @@ export const saveImage = async (
 export const downloadAndSaveImage = (
   url: string,
   destDir: string,
-  destName: string
+  destName: string,
 ) =>
   new Promise((resolve, reject) => {
     if (!fs.existsSync(destDir)) {
@@ -67,6 +67,20 @@ export const padStart = (str: string, length = 3): string => {
 
 export const getFileExtension = (url: string): string => {
   return path.extname(url);
+};
+
+export const uniqueImages = (urls: string[]): string[] => {
+  const uniqueUrlMap = new Map<string, string>();
+
+  for (const url of urls) {
+    const normalizedUrl = url.split("?")[0];
+
+    if (!uniqueUrlMap.has(normalizedUrl)) {
+      uniqueUrlMap.set(normalizedUrl, url);
+    }
+  }
+
+  return Array.from(uniqueUrlMap.values());
 };
 
 /**
