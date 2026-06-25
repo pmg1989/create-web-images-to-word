@@ -9,16 +9,16 @@ const CONFIG: Config = {
   SCRIPT_TYPE: "楷书", // Can be '隶书', '楷书', or '行书'
   PATHS: ["软笔", "颜体"],
   SOURCES: [
-    // {
-    //   title: "宝如斋",
-    //   nestedItem: true,
-    //   url: "https://www.toutiao.com/c/user/token/CiY6VeuUEQ7iIV4WqXIdvlbPTGU-AhIUbsMEJD1acDAU38oX1JYduxpJCjwAAAAAAAAAAAAAUJVv5C15SSYMuxFEmeFAYIGxHFqqwBQtpIvwN2fOjYdQJzAsbkN0IFEG3uu--5tL8hUQj42VDhjDxYPqBCIBA0TVGu4=/?source=m_redirect",
-    // },
     {
-      title: "谦德堂中考书法工作室",
-      nestedItem: false,
-      url: "https://www.toutiao.com/c/user/token/CibGzAsQxEydhW2XoMpdp8bjfw_J5AYDGvuIOn67DTzl-af0SnbttxpJCjwAAAAAAAAAAAAAUJKom0asQqBOVoW38gS-EdRvZ6AkWCc4zqpiznkfoQVIHKWNv11Gohoc0QmWNMO0ODkQxuyUDhjDxYPqBCIBA8qRFvg=/?source=m_redirect",
+      title: "宝如斋",
+      nestedItem: true,
+      url: "https://www.toutiao.com/c/user/token/CiY6VeuUEQ7iIV4WqXIdvlbPTGU-AhIUbsMEJD1acDAU38oX1JYduxpJCjwAAAAAAAAAAAAAUJVv5C15SSYMuxFEmeFAYIGxHFqqwBQtpIvwN2fOjYdQJzAsbkN0IFEG3uu--5tL8hUQj42VDhjDxYPqBCIBA0TVGu4=/?source=m_redirect",
     },
+    // {
+    //   title: "谦德堂中考书法工作室",
+    //   nestedItem: false,
+    //   url: "https://www.toutiao.com/c/user/token/CibGzAsQxEydhW2XoMpdp8bjfw_J5AYDGvuIOn67DTzl-af0SnbttxpJCjwAAAAAAAAAAAAAUJKom0asQqBOVoW38gS-EdRvZ6AkWCc4zqpiznkfoQVIHKWNv11Gohoc0QmWNMO0ODkQxuyUDhjDxYPqBCIBA8qRFvg=/?source=m_redirect",
+    // },
     // {
     //   title: "翰墨文馨",
     //   nestedItem: false,
@@ -31,11 +31,13 @@ const CONFIG: Config = {
 const SELECTORS: ListSelectors = {
   PROFILE_NAME: "#root .profile-info-wrapper .detail .name",
   CARD_WRAPPER:
-    "#root .main-wrapper .profile-tab-feed .profile-wtt-card-wrapper",
+    // "#root .main-wrapper .profile-tab-feed .profile-wtt-card-wrapper", // 个人主页
+    "#root .main-wrapper .profile-search-result .profile-wtt-card-wrapper", // 个人主页搜索结果
   CARD_TIME: ".feed-card-wtt-l .feed-card-wtt-header .time",
   CARD_LINK: ".feed-card-wtt-l .content a",
   IMAGES:
-    "#root .main-wrapper .profile-tab-feed .feed-card-wtt .feed-card-wtt-r .feed-card-cover img",
+    // "#root .main-wrapper .profile-tab-feed .feed-card-wtt .feed-card-wtt-r .feed-card-cover img", // 个人主页
+    "#root .main-wrapper .profile-search-result .feed-card-wtt .feed-card-wtt-r .feed-card-cover img", // 个人主页搜索结果
 };
 
 const getPageContent = async <T>(
@@ -87,7 +89,7 @@ const main = async (): Promise<void> => {
 
     await page.goto(source.url);
 
-    // await delay(1000 * 60 * 1); // Wait for 3 minutes to ensure all content is loaded
+    await delay(1000 * 60 * 1); // Wait for 1 minute to ensure all content is loaded
 
     const { pageTitle, subFolder } = await getPageInfo(page);
 
